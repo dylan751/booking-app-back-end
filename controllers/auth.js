@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { createError } from '../utils/error.js';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
   try {
@@ -32,8 +33,16 @@ export const login = async (req, res, next) => {
     if (!isPasswordCorrect)
       return next(createError(400, 'Wrong password or username!'));
 
+    const token = jwt.sign(
+      { id: user.id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET,
+    );
+
     const { password, isAdmin, ...otherDetails } = user._doc;
-    res.status(200).json({ ...otherDetails });
+    res
+      .cookie('access_token', token, { httpOnly: true })
+      .status(200)
+      .json({ ...otherDetails });
   } catch (err) {
     next(err);
   }

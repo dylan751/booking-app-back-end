@@ -25,10 +25,8 @@ mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected!');
 });
 
-// Enable cors
-app.use(cors());
-
 // Middlewares
+app.use(cors()); // Enable cors
 app.use(cookieParser());
 app.use(express.json());
 

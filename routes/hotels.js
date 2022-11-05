@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  countByCity,
   createHotel,
   deleteHotel,
   getHotel,
@@ -24,5 +25,7 @@ router.get('/:id', getHotel);
 
 // Get all
 router.get('/', getHotels);
+router.get('/count/byCity', countByCity);
+router.get('/count/byType', getHotels);
 
 export default router;

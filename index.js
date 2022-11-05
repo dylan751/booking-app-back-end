@@ -6,6 +6,7 @@ import usersRoute from './routes/users.js';
 import hotelsRoute from './routes/hotels.js';
 import roomsRoute from './routes/rooms.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 
@@ -23,6 +24,9 @@ const connect = async () => {
 mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected!');
 });
+
+// Enable cors
+app.use(cors());
 
 // Middlewares
 app.use(cookieParser());

@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { createError } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
+import { HTTP_EXCEPTION_ERROR_CODE } from '../constants/errorMessage.js';
 
 export const register = async (req, res, next) => {
   try {
@@ -24,14 +25,25 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return next(createError(404, 'User not found'));
+    if (!user)
+      return next(
+        createError(
+          HTTP_EXCEPTION_ERROR_CODE.USER_DOES_NOT_EXIST,
+          HTTP_EXCEPTION_ERROR_MESSAGES.USER_DOES_NOT_EXIST,
+        ),
+      );
 
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
       user.password,
     );
     if (!isPasswordCorrect)
-      return next(createError(400, 'Wrong password or username!'));
+      return next(
+        createError(
+          HTTP_EXCEPTION_ERROR_CODE.INVALID_PASSWORD,
+          HTTP_EXCEPTION_ERROR_MESSAGES.INVALID_PASSWORD,
+        ),
+      );
 
     const token = jwt.sign(
       { id: user.id, isAdmin: user.isAdmin },

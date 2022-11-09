@@ -5,6 +5,7 @@ import {
   createHotel,
   deleteHotel,
   getHotel,
+  getHotelRooms,
   getHotels,
   updateHotel,
 } from '../controllers/hotel.js';
@@ -28,5 +29,6 @@ router.get('/:id', getHotel);
 router.get('/', getHotels);
 router.get('/count/byCity', countByCity);
 router.get('/count/byType', countByType);
+router.get('/room/:hotelId', getHotelRooms);
 
 export default router;

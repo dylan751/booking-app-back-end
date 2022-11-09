@@ -1,8 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { createError } from './error.js';
+import {
+  HTTP_EXCEPTION_ERROR_CODE,
+  HTTP_EXCEPTION_ERROR_MESSAGES,
+} from '../constants/errorMessage.js';
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token;
+
   if (!token) {
     return next(
       createError(

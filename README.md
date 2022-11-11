@@ -66,6 +66,7 @@
 - [![Express][express.js]][express-url]
 - [![Module SASS][sass]][sass-url]
 - [![AWS][aws]][aws-url]
+- [![Nginx][nginx]][nginx-url]
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
@@ -208,3 +209,6 @@ Project Link: [https://github.com/muoi07052001/booking-app-back-end](https://git
 [sass-url]: https://sass-lang.com/
 [aws]: https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white
 [aws-url]: https://aws.amazon.com/
+[nginx]: https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white
+[nginx-url]: https://www.nginx.com/
+

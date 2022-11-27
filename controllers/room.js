@@ -45,7 +45,7 @@ export const updateRoomAvailability = async (req, res, next) => {
       { 'roomNumbers._id': req.params.id },
       { $push: { 'roomNumbers.$.unavailableDates': req.body.dates } },
     );
-    res.status(200).json("Room status has been Updated");
+    res.status(200).json('Room status has been Updated');
   } catch (err) {
     next(err);
   }
@@ -78,7 +78,37 @@ export const getRoom = async (req, res, next) => {
   }
 };
 
-export const getRooms = async (req, res, next) => {
+export const getMultipleRooms = async (req, res, next) => {
+  const idArr = req.params.ids.split(',');
+
+  try {
+    const roomList = await Promise.all(
+      idArr.map((roomId) => {
+        return Room.find({ 'roomNumbers._id': roomId });
+      }),
+    );
+
+    // Select unique rooms only
+    const formattedRoomList = roomList.map((room) => {
+      return room[0];
+    });
+    const uniqueRoomIdList = Array.from(
+      new Set(formattedRoomList.map((item) => item.id)),
+    );
+
+    const uniqueRoomList = await Promise.all(
+      uniqueRoomIdList.map((roomId) => {
+        return Room.findById(roomId);
+      }),
+    );
+
+    res.status(200).json(uniqueRoomList);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllRooms = async (req, res, next) => {
   try {
     const allRooms = await Room.find();
     res.status(200).json(allRooms);

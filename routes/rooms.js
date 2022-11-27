@@ -3,7 +3,8 @@ import {
   createRoom,
   deleteRoom,
   getRoom,
-  getRooms,
+  getMultipleRooms,
+  getAllRooms,
   updateRoom,
   updateRoomAvailability,
 } from '../controllers/room.js';
@@ -24,10 +25,13 @@ router.put('/availability/:id', updateRoomAvailability);
 // router.delete('/:id/:hotelId', verifyAdmin, deleteRoom);
 router.delete('/:id/:hotelId', deleteRoom);
 
-// Get
+// // Get 1 room
 router.get('/:id', getRoom);
 
-// Get all
-router.get('/', getRooms);
+// Get multiple rooms
+router.get('/multiple/:ids', getMultipleRooms);
+
+// Get all rooms
+router.get('/', getAllRooms);
 
 export default router;

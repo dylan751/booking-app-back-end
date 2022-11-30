@@ -3,7 +3,7 @@ import express from 'express';
 import {
   deleteUser,
   getUser,
-  getUsers,
+  getAllUsers,
   updateUser,
 } from '../controllers/user.js';
 import { verifyAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
@@ -31,7 +31,7 @@ router.delete('/:id', deleteUser);
 router.get('/:id', verifyUser, getUser);
 
 // Get all
-// router.get('/', verifyAdmin, getUsers);
-router.get('/', getUsers);
+// router.get('/', verifyAdmin, getAllUsers);
+router.get('/', getAllUsers);
 
 export default router;

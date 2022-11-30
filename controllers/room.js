@@ -110,7 +110,9 @@ export const getMultipleRooms = async (req, res, next) => {
 
 export const getAllRooms = async (req, res, next) => {
   try {
-    const allRooms = await Room.find();
+    const allRooms = await Room.find()
+      .limit(req.query.limit)
+      .skip(req.query.offset);
     res.status(200).json(allRooms);
   } catch (err) {
     next(err);

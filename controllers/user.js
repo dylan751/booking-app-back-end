@@ -33,9 +33,11 @@ export const getUser = async (req, res, next) => {
   }
 };
 
-export const getUsers = async (req, res, next) => {
+export const getAllUsers = async (req, res, next) => {
   try {
-    const allUsers = await User.find();
+    const allUsers = await User.find()
+      .limit(req.query.limit)
+      .skip(req.query.offset);
     res.status(200).json(allUsers);
   } catch (err) {
     next(err);

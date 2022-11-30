@@ -1,60 +1,56 @@
-import Hotel from '../models/Hotel.js';
+import Form from '../models/Form.js';
 import Room from '../models/Room.js';
 
-export const createHotel = async (req, res, next) => {
-  const newHotel = new Hotel(req.body);
+export const createForm = async (req, res, next) => {
+  const newForm = new Form(req.body);
 
   try {
-    const savedHotel = await newHotel.save();
-    res.status(200).json(savedHotel);
+    const savedForm = await newForm.save();
+    res.status(200).json(savedForm);
   } catch (err) {
     next(err);
   }
 };
 
-export const updateHotel = async (req, res, next) => {
+export const updateForm = async (req, res, next) => {
   try {
-    const updatedHotel = await Hotel.findByIdAndUpdate(
+    const updatedForm = await Form.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true },
     );
-    res.status(200).json(updatedHotel);
+    res.status(200).json(updatedForm);
   } catch (err) {
     next(err);
   }
 };
 
-export const deleteHotel = async (req, res, next) => {
+export const deleteForm = async (req, res, next) => {
   try {
-    await Hotel.findByIdAndDelete(req.params.id);
-    res.status(200).json('Hotel has been deleted!');
+    await Form.findByIdAndDelete(req.params.id);
+    res.status(200).json('Form has been deleted!');
   } catch (err) {
     next(err);
   }
 };
 
-export const getHotel = async (req, res, next) => {
+export const getForm = async (req, res, next) => {
   try {
-    const hotel = await Hotel.findById(req.params.id);
-    res.status(200).json(hotel);
+    const form = await Form.findById(req.params.id);
+    res.status(200).json(form);
   } catch (err) {
     next(err);
   }
 };
 
-export const getAllHotels = async (req, res, next) => {
-  const { min, max, ...others } = req.query;
+export const getAllForms = async (req, res, next) => {
   try {
-    const allHotels = await Hotel.find({
-      ...others,
-      cheapestPrice: { $gte: min || 1, $lte: max || 999 },
-    })
+    const allForms = await Form.find()
       .limit(req.query.limit)
       .skip(req.query.offset);
-    res.status(200).json(allHotels);
+    res.status(200).json(allForms);
   } catch (err) {
     next(err);
   }

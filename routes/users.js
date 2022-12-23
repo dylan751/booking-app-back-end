@@ -5,6 +5,7 @@ import {
   getUser,
   getAllUsers,
   updateUser,
+  getUserReservation,
 } from '../controllers/user.js';
 import { verifyAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
 
@@ -33,5 +34,9 @@ router.get('/:id', verifyUser, getUser);
 // Get all
 // router.get('/', verifyAdmin, getAllUsers);
 router.get('/', getAllUsers);
+
+// Get all user's reservation history
+// router.get('/:id/reservation', verifyUser, getUserReservation);
+router.get('/:id/reservation', getUserReservation);
 
 export default router;

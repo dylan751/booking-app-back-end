@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
 const FormSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+  },
   isTravelForWork: {
     type: Boolean,
   },
@@ -40,6 +43,8 @@ const FormSchema = new mongoose.Schema({
   roomIds: {
     type: String,
   },
+  startDate: { type: Date },
+  endDate: { type: Date },
 });
 
 export default mongoose.model('Form', FormSchema);

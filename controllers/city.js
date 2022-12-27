@@ -45,10 +45,18 @@ export const getCity = async (req, res, next) => {
 };
 
 export const getAllCities = async (req, res, next) => {
+  const featured = req.query.featured;
+  let allCities;
   try {
-    const allCities = await City.find()
-      .limit(req.query.limit)
-      .skip(req.query.offset);
+    if (featured) {
+      allCities = await City.find({ featured })
+        .limit(req.query.limit)
+        .skip(req.query.offset);
+    } else {
+      allCities = await City.find()
+        .limit(req.query.limit)
+        .skip(req.query.offset);
+    }
     res.status(200).json(allCities);
   } catch (err) {
     next(err);

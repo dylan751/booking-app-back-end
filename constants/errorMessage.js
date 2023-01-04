@@ -4,7 +4,6 @@ export const HTTP_EXCEPTION_ERROR_MESSAGES = {
   MISSING_JWT_TOKEN: 'Missing JWT token',
   MISSING_DATA_PAYLOAD: 'Missing user data in payload',
   USER_DOES_NOT_EXIST: "User doesn't exist! Please input another username!",
-  USER_NAME_MUST_UNIQUE: 'Username must be unique',
   USER_EMAIL_MUST_UNIQUE: "User's email must be unique",
   USER_NOT_AUTHENTICATED: 'Your are not authenticated!',
   USER_NOT_AUTHORIZED: 'Your are not authorized!',

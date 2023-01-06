@@ -9,6 +9,9 @@ const CitySchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    country: {
+      type: String,
+    },
     featured: {
       type: Boolean,
       default: false,

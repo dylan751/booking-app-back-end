@@ -48,20 +48,46 @@ export const getHotel = async (req, res, next) => {
 export const getAllHotels = async (req, res, next) => {
   const { min, max, ...others } = req.query;
   try {
-    const allHotels = req.query.type
-      ? await Hotel.find({
-          ...others,
-          cheapestPrice: { $gte: min || 1, $lte: max || 999 },
-          type: req.query.type,
-        })
-          .limit(req.query.limit)
-          .skip(req.query.offset)
-      : await Hotel.find({
-          ...others,
-          cheapestPrice: { $gte: min || 1, $lte: max || 999 },
-        })
-          .limit(req.query.limit)
-          .skip(req.query.offset);
+    let allHotels = await Hotel.find({
+      ...others,
+      cheapestPrice: { $gte: min || 1, $lte: max || 999 },
+    })
+      .limit(req.query.limit)
+      .skip(req.query.offset);
+
+    // Filter by hotel type (Find hotels is one of the types) - OR
+    if (req.query.type) {
+      allHotels = await allHotels.filter(
+        (hotel) => req.query.type.indexOf(hotel.type) !== -1,
+      );
+    }
+
+    // // Filter by hotel's room type (Find hotels contains one of the room types) - OR
+    // if (req.query.roomType) {
+    //   allHotels = await allHotels.filter(async (hotel) => {
+    //     const roomList = await Promise.all(
+    //       hotel.rooms.map((roomId) => {
+    //         return Room.findById(roomId);
+    //       }),
+    //     );
+    //     console.log(roomList);
+
+    //     return roomList.some(
+    //       (room) => req.query.roomType.indexOf(room.type) === -1,
+    //     );
+    //   });
+    // }
+
+    // Filter by tag (Find hotels includes all the tags) - AND
+    if (req.query.tag) {
+      allHotels = await allHotels.filter((hotel) =>
+        // If tag is 'string' => has to convert to array first
+        typeof req.query.tag === 'string'
+          ? req.query.tag.split().every((v) => hotel.tags.includes(v))
+          : req.query.tag.every((v) => hotel.tags.includes(v)),
+      );
+    }
+
     res.status(200).json(allHotels);
   } catch (err) {
     next(err);

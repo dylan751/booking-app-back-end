@@ -46,7 +46,7 @@ export const getHotel = async (req, res, next) => {
 };
 
 export const getAllHotels = async (req, res, next) => {
-  const { min, max, ...others } = req.query;
+  const { min, max, distance, ...others } = req.query;
   try {
     let allHotels = await Hotel.find({
       ...others,
@@ -55,28 +55,15 @@ export const getAllHotels = async (req, res, next) => {
       .limit(req.query.limit)
       .skip(req.query.offset);
 
-    // Filter by hotel type (Find hotels is one of the types) - OR
-    if (req.query.type) {
-      allHotels = await allHotels.filter(
-        (hotel) => req.query.type.indexOf(hotel.type) !== -1,
+    // Filter by hotel's distance from center of the city (Find hotels have distance less or equal than) - OR
+    if (distance) {
+      allHotels = await allHotels.filter((hotel) =>
+        // If distance is 'string' => has to convert to array first
+        typeof distance === 'string'
+          ? parseInt(hotel.distance) <= parseInt(distance)
+          : parseInt(hotel.distance) <= Math.max(...distance),
       );
     }
-
-    // // Filter by hotel's room type (Find hotels contains one of the room types) - OR
-    // if (req.query.roomType) {
-    //   allHotels = await allHotels.filter(async (hotel) => {
-    //     const roomList = await Promise.all(
-    //       hotel.rooms.map((roomId) => {
-    //         return Room.findById(roomId);
-    //       }),
-    //     );
-    //     console.log(roomList);
-
-    //     return roomList.some(
-    //       (room) => req.query.roomType.indexOf(room.type) === -1,
-    //     );
-    //   });
-    // }
 
     // Filter by tag (Find hotels includes all the tags) - AND
     if (req.query.tag) {

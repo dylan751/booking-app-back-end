@@ -65,14 +65,42 @@ export const getAllHotels = async (req, res, next) => {
       );
     }
 
-    // Filter by tag (Find hotels includes all the tags) - AND
-    if (req.query.tag) {
+    // Filter by hotel tag (Find hotels includes all the tags) - AND
+    if (req.query.hotelTag) {
       allHotels = await allHotels.filter((hotel) =>
         // If tag is 'string' => has to convert to array first
-        typeof req.query.tag === 'string'
-          ? req.query.tag.split().every((v) => hotel.tags.includes(v))
-          : req.query.tag.every((v) => hotel.tags.includes(v)),
+        typeof req.query.hotelTag === 'string'
+          ? req.query.hotelTag.split().every((v) => hotel.tags.includes(v))
+          : req.query.hotelTag.every((v) => hotel.tags.includes(v)),
       );
+    }
+
+    // Filter by room tag (Find hotels have rooms include all the tags) - AND
+    if (req.query.roomTag) {
+      const result = await Promise.all(
+        allHotels.map(async (hotel) => {
+          const roomList = await Promise.all(
+            hotel.rooms.map((roomId) => {
+              return Room.findById(roomId);
+            }),
+          );
+
+          const res = roomList.map((room) =>
+            // If tag is 'string' => has to convert to array first
+            typeof req.query.roomTag === 'string'
+              ? req.query.roomTag.split().every((v) => room.tags.includes(v))
+              : req.query.roomTag.every((v) => room.tags.includes(v)),
+          );
+          if (res.some((element) => element === true)) {
+            return true;
+          }
+          return false;
+        }),
+      );
+
+      allHotels = allHotels.filter((_, index) => {
+        return result[index];
+      });
     }
 
     res.status(200).json(allHotels);

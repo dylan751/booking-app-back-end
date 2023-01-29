@@ -65,6 +65,8 @@
 - [![Node][node.js]][node-url]
 - [![Express][express.js]][express-url]
 - [![Module SASS][sass]][sass-url]
+
+### Deployed With
 - [![AWS][aws]][aws-url]
 - [![Nginx][nginx]][nginx-url]
 - [![Render][render]][render-url]
@@ -212,4 +214,6 @@ Project Link: [https://github.com/muoi07052001/booking-app-back-end](https://git
 [aws-url]: https://aws.amazon.com/
 [nginx]: https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white
 [nginx-url]: https://www.nginx.com/
+[render]: https://img.shields.io/badge/Render-4351e7?style=for-the-badge&logo=render&logoColor=white
+[render-url]: https://render.com/
 

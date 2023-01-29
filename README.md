@@ -67,6 +67,7 @@
 - [![Module SASS][sass]][sass-url]
 - [![AWS][aws]][aws-url]
 - [![Nginx][nginx]][nginx-url]
+- [![Render][render]][render-url]
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 

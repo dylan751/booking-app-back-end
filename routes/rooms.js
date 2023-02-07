@@ -7,10 +7,14 @@ import {
   getAllRooms,
   updateRoom,
   updateRoomAvailability,
+  getRoomCount,
 } from '../controllers/room.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
+
+// Get all room's count
+router.get('/count', getRoomCount);
 
 // Create
 // router.post('/:hotelId', verifyAdmin, createRoom);

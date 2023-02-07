@@ -157,3 +157,12 @@ export const getHotelRooms = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getHotelCount = async (req, res, next) => {
+  try {
+    const hotelCount = await Hotel.countDocuments({});
+    res.status(200).json(hotelCount);
+  } catch (err) {
+    next(err);
+  }
+};

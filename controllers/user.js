@@ -57,3 +57,12 @@ export const getUserReservation = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getUserCount = async (req, res, next) => {
+  try {
+    const userCount = await User.countDocuments({});
+    res.status(200).json(userCount);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -6,6 +6,7 @@ import {
   getAllUsers,
   updateUser,
   getUserReservation,
+  getUserCount,
 } from '../controllers/user.js';
 import { verifyAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
 
@@ -20,6 +21,9 @@ const router = express.Router();
 // router.get('/checkadmin/:id', verifyAdmin, (req, res, next) => {
 //   res.send('Hello admin, you are logged in and you can delete all account!');
 // });
+
+// Get all user's count
+router.get('/count', getUserCount);
 
 // Update
 router.put('/:id', verifyUser, updateUser);

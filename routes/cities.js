@@ -5,10 +5,14 @@ import {
   getCity,
   getAllCities,
   updateCity,
+  getCityCount,
 } from '../controllers/city.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
+
+// Get all city's count
+router.get('/count', getCityCount);
 
 // Create
 // router.post('/', verifyAdmin, createCity);

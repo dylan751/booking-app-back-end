@@ -8,10 +8,14 @@ import {
   getHotelRooms,
   getAllHotels,
   updateHotel,
+  getHotelCount,
 } from '../controllers/hotel.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
+
+// Get all hotel's count
+router.get('/count', getHotelCount);
 
 // Create
 // router.post('/', verifyAdmin, createHotel);

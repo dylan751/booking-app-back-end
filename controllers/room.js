@@ -107,3 +107,12 @@ export const getAllRooms = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getRoomCount = async (req, res, next) => {
+  try {
+    const roomCount = await Room.countDocuments({});
+    res.status(200).json(roomCount);
+  } catch (err) {
+    next(err);
+  }
+};

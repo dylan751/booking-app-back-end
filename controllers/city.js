@@ -62,3 +62,12 @@ export const getAllCities = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getCityCount = async (req, res, next) => {
+  try {
+    const cityCount = await City.countDocuments({});
+    res.status(200).json(cityCount);
+  } catch (err) {
+    next(err);
+  }
+};

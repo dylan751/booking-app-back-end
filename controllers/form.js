@@ -104,3 +104,12 @@ export const getHotelRooms = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getFormCount = async (req, res, next) => {
+  try {
+    const formCount = await Form.countDocuments({});
+    res.status(200).json(formCount);
+  } catch (err) {
+    next(err);
+  }
+};

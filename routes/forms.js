@@ -5,10 +5,14 @@ import {
   getForm,
   getAllForms,
   updateForm,
+  getFormCount,
 } from '../controllers/form.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
+
+// Get all form's count
+router.get('/count', getFormCount);
 
 // Create
 // router.post('/', verifyAdmin, createForm);
